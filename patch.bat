@@ -1,19 +1,20 @@
+:startup_begin
 @echo off
 if exist temp.bat del /q temp.bat
 :: ===========================================================================
 :: Wii Mail Patcher for Windows
-set version=1.0.0
-:: AUTHORS: KcrPL, Foxlight
+set version=1.0.1
+:: AUTHORS: KcrPL, Spotlight
 :: ***************************************************************************
 :: Copyright (c) 2017 RiiConnect24, and it's (Lead) Developers
 :: ===========================================================================
 title RiiConnect24 Mail Patcher.
-set last_build=2017/09/03
-set at=02:11
+set last_build=2017/09/26
+set at=18:09
 
 set mode=126,36
 mode %mode%
-title Mail Patcher for RiiConnect24 v.%version%  Created by @KcrPL, @Foxlight
+title Mail Patcher for RiiConnect24 v.%version%  Created by @KcrPL, @Spotlight
 
 set /a rep=1
 
@@ -26,6 +27,8 @@ set TempStorage=%appdata%\Mail-Patcher\internet\temp
 if %os%=="" goto not_windows_nt
 if not %os%==Windows_NT goto not_windows_nt
 
+if exist %MainFolder%\requirerestart.txt goto reqrestart
+
 set /a patherror=0
 if "%cd%"=="%windir%\system32" set /a patherror=1
 if %patherror%==0 if not exist patch.bat set /a patherror=2
@@ -33,16 +36,31 @@ if %patherror%==0 if not exist patch.bat set /a patherror=2
 goto begin_main
 :not_windows_nt
 cls
-echo RiiConnect24 Mail Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo.
 echo Please don't run our Mail Patcher in MS-DOS :P.
 echo Run it only on Windows Vista+ computer. :)
 pause>NUL	
 exit
+:reqrestart
+del /q %MainFolder%\requirerestart.txt
+cls
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
+echo.
+echo We will now continue the Ruby installation.
+echo Please wait...
+
+echo 4/4 Installing gem.
+call gem install bindata
+echo.
+echo Done! Please wait few seconds.
+timeout 5 /nobreak >NUL
+goto startup_begin
+
 :begin_main
 mode %mode%
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 if %patherror%==0 echo              `..````                                                  
 if %patherror%==0 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
 if %patherror%==0 echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
@@ -513,7 +531,7 @@ exit
 :whatsnew
 cls
 if not exist %TempStorage%\whatsnew.txt goto whatsnew_notexist
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------              
 echo.
 echo What's new in update %updateversion%?
@@ -523,7 +541,7 @@ pause>NUL
 goto update_notice
 :whatsnew_notexist
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo -----------------------------------------------------------------------------------------------------------------------------              
 echo.
 echo Error. What's new file is not available.
@@ -578,7 +596,7 @@ if %rubyavailable%==0 set rubyavailablemessage=No
 if %rubyversion%==INCORECT set rubyversionmessage=No
 if %rubyversion%==OK set rubyversionmessage=Yes
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------ 
 echo.
 echo This patcher is for patching nwc24msg.cfg file in order to make RiiConnect24 Mail work on your Wii!
@@ -601,7 +619,7 @@ goto 2_patch_script
 :2_script_error
 cls
 
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------ 
 echo.
 echo SOFTWARE FAILRUE
@@ -610,7 +628,7 @@ pause>NUL
 goto startup_script
 :2_download_ruby
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------ 
 echo.
 echo Now, we will fix the problem with ruby version.
@@ -662,7 +680,7 @@ pause>NUL
 goto begin_main
 :2_downloading_ruby
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------ 
 echo.
 echo Downloading and installing ruby.
@@ -680,25 +698,25 @@ set actionerrordeb=Downloading Ruby
 if not %errorlevel%==0 goto error_download
 echo Done!
 echo.
-echo 3/4 Installing Ruby in background. Can take a moment or two.
+echo 3/4 Installing Ruby in background. This can take a moment or two.
 if %processor_architecture%==x86 call "%TempStorage%\rubyinstaller-2.4.1-2-x86.exe" /verysilent /dir="%appdata%\Ruby24" /tasks="assocfiles,modpath"
 if %processor_architecture%==AMD64 call "%TempStorage%\rubyinstaller-2.4.1-2-x64.exe" /verysilent /dir="%appdata%\Ruby24" /tasks="assocfiles,modpath"
 set actionerrordeb=Installing Ruby.
 if not %errorlevel%==0 goto error_download
 echo Done!
-
-echo 4/4 Installing gem.
-set actionerrordeb=Installing gem.
-gem install bindata
-echo Done!.
 echo.
-echo Returning to main menu in 5 seconds...
+echo Press any button and the patcher will restart.
+timeout 2 /nobreak >NUL
 pause
-timeout 5 /nobreak >NUL
-goto startup_script
+goto after_install_restart
+:after_install_restart
+cls
+echo .>>%MainFolder%\requirerestart.txt
+start patch.bat
+exit
 :2_patch_script
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------ 
 echo.
 echo In order to patch Mail configuration file, I need that file.
@@ -716,7 +734,7 @@ ping localhost -n 3 >NUL
 goto 2_patch_script
 :error_patching
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 mode %mode%
 cls
 echo.                                                                       
@@ -756,7 +774,7 @@ pause>NUL
 goto begin_main
 :3
 cls
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------ 
 echo.
 echo Patching nwc24msg.cfg...
@@ -776,7 +794,7 @@ mode %mode%
 cls
 cls
 echo.
-echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Foxlight v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
 echo ------------------------------------------------------------------------------------------------------------------------------ 
 echo  [*] Thanks for using the Patcher! :)
 echo.
