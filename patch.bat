@@ -3,7 +3,7 @@
 if exist temp.bat del /q temp.bat
 :: ===========================================================================
 :: Wii Mail Patcher for Windows
-set version=1.0.1
+set version=1.0.3
 :: AUTHORS: KcrPL, Spotlight
 :: ***************************************************************************
 :: Copyright (c) 2017 RiiConnect24, and it's (Lead) Developers
@@ -403,8 +403,8 @@ echo ---------------------------------------------------------------------------
 echo    /---\   Error.              
 echo   /     \  An Update server is not available.
 echo  /   !   \ 
-echo  ---------  
-echo.            
+echo  ---------  If you can't get it to work, please mail us at support@riiconnect24.net. We will answer you and patch your
+echo.            nwc24msg.cfg file.
 echo            Press any button to continue.
 echo ------------------------------------------------------------------------------------------------------------------------------    
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
@@ -705,14 +705,13 @@ set actionerrordeb=Installing Ruby.
 if not %errorlevel%==0 goto error_download
 echo Done!
 echo.
-echo Press any button and the patcher will restart.
+echo Press any button and the patcher will exit. Please restart it.
 timeout 2 /nobreak >NUL
 pause
 goto after_install_restart
 :after_install_restart
 cls
 echo .>>%MainFolder%\requirerestart.txt
-start patch.bat
 exit
 :2_patch_script
 cls
@@ -791,7 +790,6 @@ timeout 1 /nobreak >NUL && set /a timeouterror=0
 goto end1
 :end1
 mode %mode%
-cls
 cls
 echo.
 echo RiiConnect24 Mail Patcher - (C) KcrPL, (C) Spotlight v%version%. (Compiled on %last_build% at %at%)
