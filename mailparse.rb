@@ -47,12 +47,12 @@ module SerieBot
       # Patch domain 
       cfg.wii_email_domain.assign(string_with_null('@rc24.xyz', 0x40)) 
  
-      base_domain = 'http://mtw.rc24.xyz:4200/cgi-bin/' 
+      base_domain = 'http://mtw.rc24.xyz/cgi-bin/' 
       # List of cgis (in order!) 
       cgi_script = %w(account check receive delete send) 
       cgi_script.length.times do |point_number| 
         # Set point number to cgi script at point 
-        cfg.points[point_number].assign(string_with_null(base_domain + cgi_script[point_number] + '.php', 0x80)) 
+        cfg.points[point_number].assign(string_with_null(base_domain + cgi_script[point_number] + '.cgi', 0x80)) 
       end 
  
       # Remove current checksum 

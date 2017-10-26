@@ -3,7 +3,7 @@
 if exist temp.bat del /q temp.bat
 :: ===========================================================================
 :: Wii Mail Patcher for Windows
-set version=1.0.3
+set version=1.0.5
 :: AUTHORS: KcrPL, Spotlight
 :: ***************************************************************************
 :: Copyright (c) 2017 RiiConnect24, and it's (Lead) Developers
@@ -752,8 +752,8 @@ echo ---------------------------------------------------------------------------
 echo    /---\   ERROR.              
 echo   /     \  There was an error while patching.
 echo  /   !   \ 
-echo  ---------              
-echo.
+echo  --------- Operation: %module%             
+echo            Error code: %temperrorlev%
 echo.
 echo       Press any key to return to main menu.
 echo ---------------------------------------------------------------------------------------------------------------------------
@@ -780,6 +780,16 @@ echo Patching nwc24msg.cfg...
 set actionerrordeb=Patching
 start mailparse.rb
 set temperrorlev=%errorlevel%
+
+if %temperrorlev%==0 goto end
+
+if %temperrorlev%==2 set module=Opening file failed
+if %temperrorlev%==2 goto error_patching
+
+if %temperrorlev%==3 set module=Could not find any patterns in your nwc24msg.cfg file.
+if %temperrorlev%==3 goto error_patching
+
+if not %temperrorlev%==0 set module=Unknown patching failure.
 if not %temperrorlev%==0 goto error_patching
 
 goto end
