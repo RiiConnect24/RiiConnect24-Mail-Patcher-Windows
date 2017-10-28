@@ -3,24 +3,24 @@
 if exist temp.bat del /q temp.bat
 :: ===========================================================================
 :: Wii Mail Patcher for Windows
-set version=1.0.5
+set version=1.0.6
 :: AUTHORS: KcrPL, Spotlight
 :: ***************************************************************************
 :: Copyright (c) 2017 RiiConnect24, and it's (Lead) Developers
 :: ===========================================================================
 title RiiConnect24 Mail Patcher.
-set last_build=2017/09/26
-set at=18:09
+set last_build=2017/10/28
+set at=18:27
 
 set mode=126,36
 mode %mode%
-title Mail Patcher for RiiConnect24 v.%version%  Created by @KcrPL, @Spotlight
+title Mail Patcher for RiiConnect24 v.%version%  Created by @KcrPL, @Spotlight, @Seriel
 
 set /a rep=1
 
 set /a update_Activate=1
 set /a offlinestorage=0
-set FilesHostedOn=https://kcrpl.github.io/Patchers_Auto_Update/Mail-Patcher
+set FilesHostedOn=https://raw.githubusercontent.com/KcrPL/KcrPL.github.io/master/Patchers_Auto_Update/Mail-Patcher
 set MainFolder=%appdata%\Mail-Patcher
 set TempStorage=%appdata%\Mail-Patcher\internet\temp
 
