@@ -1,5 +1,5 @@
 # RiiConnect24 Mail Patcher for Windows
-[![License](https://img.shields.io/github/license/RiiConnect24/RiiConnect24-Mail-Patcher-Windows.svg.svg?style=flat-square)](http://www.gnu.org/licenses/agpl-3.0)
+[![License](https://img.shields.io/github/license/RiiConnect24/RiiConnect24-Mail-Patcher-Windows.svg?style=flat-square)](http://www.gnu.org/licenses/agpl-3.0)
 ![Production List](https://img.shields.io/discord/206934458954153984.svg?style=flat-square)
 ![Version Badge](https://img.shields.io/github/release/RiiConnect24/RiiConnect24-Mail-Patcher-Windows.svg?style=flat-square)
 
